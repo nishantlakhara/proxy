@@ -1,0 +1,38 @@
+<h1>Greeting</h1>
+<div [hidden]="!authenticated()">
+<table>
+  <tr>
+    <th *ngFor="let col of columns">
+      {{col}}
+    </th>
+  </tr>
+  <tr *ngFor="let char of characters | async">
+    <td *ngFor="let col of columns">
+      {{char[col]}}
+    </td>
+  </tr>
+</table>
+  <button type="button" label="Click" (click)="calldata()">Initialize vendors</button>
+  <!--<ul>-->
+    <!--<li *ngFor="let item of vendordata">-->
+      <!--{{ item.vendorId }}-->
+    <!--</li>-->
+  <!--</ul>-->
+  <table *ngIf="vendordata">
+    <tr>
+      <th *ngFor="let col of vendorcolumns">
+        {{col}}
+      </th>
+    </tr>
+    <tr *ngFor="let vendor of vendordata">
+      <td *ngFor="let col of vendorcolumns">
+        {{vendor[col]}}
+      </td>
+    </tr>
+  </table>
+  <!--<ul *ngIf="vendordata">-->
+    <!--<li *ngFor="let vendor of vendordata">-->
+      <!--{{ vendor.vendorId }}-->
+    <!--</li>-->
+  <!--</ul>-->
+</div>
