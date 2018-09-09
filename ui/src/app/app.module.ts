@@ -15,6 +15,7 @@ import {
 
 import { Observable } from 'rxjs/Observable';
 import { TableComponent } from './table/table.component';
+import { VendorFormComponent } from './vendor-form/vendor-form.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -39,7 +40,8 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    TableComponent
+    TableComponent,
+    VendorFormComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

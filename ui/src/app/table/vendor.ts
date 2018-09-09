@@ -1,5 +1,7 @@
 export class Vendor {
-     vendorId: number;
-     firmName: string;
-     gstnumber: string;
-  }
+     constructor(
+         public vendorId: number,
+         public firmName: string,
+         public gstnumber: string
+      ) {  }
+}

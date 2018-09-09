@@ -4,5 +4,5 @@
 	<p>The content is {{greeting.content}}</p>
 </div>
 <div [hidden]="authenticated()">
-	<p>Login to see your greeting</p>
+  <p><button class="btn btn-primary" (click)="navigate('/login')">Login</button> to see home page information</p>
 </div>
