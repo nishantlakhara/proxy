@@ -25,11 +25,11 @@ public class ResourceApplication extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().authenticated();
 	}
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/swagger**")
-					.antMatchers("/vendors**");
-	}
+//	@Override
+//	public void configure(WebSecurity web) throws Exception {
+//		web.ignoring().antMatchers("/swagger**")
+//					.antMatchers("/vendors**");
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResourceApplication.class, args);

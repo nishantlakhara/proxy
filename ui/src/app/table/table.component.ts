@@ -41,21 +41,26 @@ export class TableComponent {
 
   getAllVendors() {
     this.http.get(this.vendorUrl).subscribe(res => this.vendordata = res as Vendor[]);
-    console.log("constructor called");
   }
 
   navigate(url: string) {
      this.router.navigateByUrl(url);
   }
 
-    getVendor(vendorId) {
-      return this
-              .http
-              .get(this.vendorUrl+"/"+vendorId)
-              .map(res => {
-                return res;
-              });
-    }
+  getVendor(vendorId) {
+    return this
+            .http
+            .get(this.vendorUrl+"/"+vendorId)
+            .map(res => {
+              return res;
+            });
+  }
+
+  deleteVendor(id: number, idx: number) {
+    const uri = this.vendorUrl + "/" + id;
+    this.http.delete(uri).subscribe(res => console.log(res));
+    this.vendordata.splice(idx, 1);
+  }
 
     updateCoin(name, price, id) {
       const uri = 'http://localhost:4000/coins/update/' + id;

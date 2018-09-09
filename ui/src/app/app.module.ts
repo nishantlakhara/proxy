@@ -21,9 +21,15 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 export class XhrInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+
     const xhr = req.clone({
       headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+//                          .set('X-CSRF-TOKEN', req.headers.get('X-XSRF-TOKEN'))
     });
+    //const xhr1 = xhr.clone({
+    //      headers: xhr.headers.set('X-CSRF-TOKEN', req.headers.get('X-XSRF-TOKEN'))
+    //});
+
     return next.handle(xhr);
   }
 }
