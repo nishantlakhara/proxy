@@ -21,14 +21,23 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 export class XhrInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    console.log('Hello brother')
 
-    const xhr = req.clone({
-      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
-//                          .set('X-CSRF-TOKEN', req.headers.get('X-XSRF-TOKEN'))
-    });
-    //const xhr1 = xhr.clone({
-    //      headers: xhr.headers.set('X-CSRF-TOKEN', req.headers.get('X-XSRF-TOKEN'))
-    //});
+    //var xhr;
+    //if(req.headers.get('X-XSRF-TOKEN') != null) {
+    //  console.log('I am here' + req.headers.get('X-XSRF-TOKEN'))
+    //  xhr = req.clone({
+    //        headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    //                           .set('X-CSRF-TOKEN', req.headers.get('X-XSRF-TOKEN'))
+    //                           .set('_csrf', req.headers.get('X-XSRF-TOKEN'))
+    //
+    //      });
+    //} else {
+      const xhr = req.clone({
+        headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+      });
+    //}
+    console.log('xhr ==' + xhr )
 
     return next.handle(xhr);
   }
