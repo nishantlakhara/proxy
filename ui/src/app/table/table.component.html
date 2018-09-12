@@ -14,6 +14,7 @@
     <td *ngFor="let col of vendorcolumns">
       {{vendor[col]}}
     </td>
+
     <span><button (click)="editVendor(vendor.vendorId, idx)">Edit</button></span>
     <span><button (click)="deleteVendor(vendor.vendorId, idx)">Delete</button></span>
   </tr>

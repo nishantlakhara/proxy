@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { VendorFormComponent } from '../vendor-form/vendor-form.component'
+import { VendorService } from '../vendor.service';
 
 @Component({
   selector: 'app-table',
@@ -17,30 +18,30 @@ import { VendorFormComponent } from '../vendor-form/vendor-form.component'
 
 export class TableComponent {
   characters: Observable<any[]>;
-
   columns: string[];
   vendordata: Vendor[];
-  vendorcolumns: string[];
+  vendorcolumns: string[] = ["vendorId", "firmName", "gstnumber"];
   vendorUrl: string = "resource/vendors";
 
   constructor(private app: AppService,
               private atService: AdventureTimeService,
+              private vendorService: VendorService,
               private http: HttpClient,
               private router: Router) {
-     this.columns = this.atService.getColumns();
+     this.columns = this.vendorService.getColumns();
      this.characters = this.atService.getCharacters();
-     this.vendorcolumns = ["vendorId", "firmName", "gstnumber"];
-
-     this.http.get('resource/vendors').subscribe(res => this.vendordata = res as Vendor[]);
-     console.log(this.vendorcolumns);
   }
 
   authenticated() {
-      return this.app.authenticated;
+     if(this.app.authenticated) {
+        this.getAllVendors();
+     }
+    // return true;
+     return this.app.authenticated;
   }
 
   getAllVendors() {
-    this.http.get(this.vendorUrl).subscribe(res => this.vendordata = res as Vendor[]);
+     this.vendordata = this.vendorService.getAllVendors();
   }
 
   navigate(url: string) {
@@ -57,37 +58,16 @@ export class TableComponent {
   }
 
   deleteVendor(id: number, idx: number) {
-    const uri = this.vendorUrl + "/" + id;
-    this.http.delete(uri).subscribe(res => console.log(res));
+    this.vendorService.deleteVendor(id);
     this.vendordata.splice(idx, 1);
   }
 
-    updateCoin(name, price, id) {
-      const uri = 'http://localhost:4000/coins/update/' + id;
+  updateVendor(id: number, vendor: Vendor) {
+    this.vendorService.updateVendor(id, vendor);
+  }
 
-      const obj = {
-        name: name,
-        price: price
-      };
-      this
-        .http
-        .post(uri, obj)
-        .subscribe(res => console.log('Done'));
-    }
-
-    deleteCoin(id) {
-      const uri = 'http://localhost:4000/coins/delete/' + id;
-
-          return this
-              .http
-              .get(uri)
-              .map(res => {
-                return res;
-              });
-    }
-
-    private handleError (error: Response | any) {
-    	console.error(error.message || error);
-    	return Observable.throw(error.status);
-    }
+  private handleError (error: Response | any) {
+    console.error(error.message || error);
+    return Observable.throw(error.status);
+  }
 }

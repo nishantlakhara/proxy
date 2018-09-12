@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppService } from './app.service';
 import { AdventureTimeService } from './adventure-time.service';
+import { VendorService } from './vendor.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login.component';
@@ -21,8 +22,6 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 export class XhrInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log('Hello brother')
-
     //var xhr;
     //if(req.headers.get('X-XSRF-TOKEN') != null) {
     //  console.log('I am here' + req.headers.get('X-XSRF-TOKEN'))
@@ -37,7 +36,6 @@ export class XhrInterceptor implements HttpInterceptor {
         headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
       });
     //}
-    console.log('xhr ==' + xhr )
 
     return next.handle(xhr);
   }
@@ -64,7 +62,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [AppService, AdventureTimeService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [AppService, AdventureTimeService, VendorService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,8 +11,4 @@ export class AdventureTimeService {
   getCharacters(): Observable<any[]>{
     return Observable.of(CHARACTERS);
   }
-
-  getColumns(): string[]{
-    return ["name", "age", "species", "occupation"]
-  };
 }
