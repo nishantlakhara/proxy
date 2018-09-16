@@ -2,6 +2,7 @@
 
 <div [hidden]="!authenticated()">
   <app-vendor-form></app-vendor-form>
+
   <br><br>
   <h2> All Vendors information </h2>
   <table *ngIf="vendordata" class="table table-hover">
@@ -10,17 +11,53 @@
       {{col}}
     </th>
   </tr>
+
   <tr *ngFor="let vendor of vendordata; let idx=index">
-    <td *ngFor="let col of vendorcolumns">
-      {{vendor[col]}}
+    <!--<td *ngFor="let col of vendorcolumns" [hidden]="isselected(vendor)">-->
+      <!--{{vendor[col]}}-->
+    <!--</td>-->
+    <!--<td *ngFor="let col of vendorcolumns" [hidden]="!isselected(vendor)">-->
+      <!--<input type="text" value="{{vendor[col]}}" [(ngModel)]="{{vendor[col]}}"/>-->
+    <!--</td>-->
+
+    <td>
+      {{vendor.vendorId}}
     </td>
 
-    <span><button (click)="editVendor(vendor.vendorId, idx)">Edit</button></span>
+    <td [hidden]="isselected(vendor)">
+      {{vendor.firmName}}
+    </td>
+    <td [hidden]="!isselected(vendor)">
+      <input [(ngModel)]="vendor.firmName">
+    </td>
+
+    <td [hidden]="isselected(vendor)">
+      {{vendor.gstnumber}}
+    </td>
+    <td [hidden]="!isselected(vendor)">
+      <input [(ngModel)]="vendor.gstnumber">
+    </td>
+
+
+    <!--<div class="view">-->
+      <!--<input class="toggle" type="checkbox" [checked]="vendor.isDone">-->
+      <!--<label (dblclick)="vendor.editing = true">{{vendor.vendorId}}</label>-->
+      <!--<button class="destroy"></button>-->
+    <!--</div>-->
+    <!--<input class="edit"-->
+           <!--#updatedTodo-->
+           <!--[value]="todo.title"-->
+           <!--(blur)="updateTodo(todo, updatedTodo.value)"-->
+           <!--(keyup.escape)="todo.editing = false"-->
+           <!--(keyup.enter)="updateTodo(todo, updatedTodo.value)">-->
+
+    <span><button (click)="updateVendor(vendor.vendorId, vendor)">Edit</button></span>
+    <span><button (click)="saveVendor(vendor.vendorId, vendor)">Save</button></span>
     <span><button (click)="deleteVendor(vendor.vendorId, idx)">Delete</button></span>
   </tr>
   </table>
 
-  <button type="button" label="Click" (click)="getAllVendors()">Refresh</button>
+  <button type="button" label="Click" (click)="getAllVendors()" >Refresh</button>
 </div>
 
 <div [hidden]="authenticated()">
